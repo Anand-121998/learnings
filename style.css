@@ -7,8 +7,9 @@
 body {
     font-family: Arial, sans-serif;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
     height: 100vh;
     background-color: #f4f4f4;
 }
@@ -62,7 +63,7 @@ body {
 }
 
 table {
-    width: 100%;
+    width: 50%;
     border-collapse: collapse;
     margin-top: 20px;
     background: white;
@@ -73,10 +74,14 @@ th, td {
     text-align: center;
 }
 .edit {
-    background: #ffc107;
+    background: #ffffff;
     color: black;
+    height: 24px;
+    width: 60px;
 }
 .delete {
     background: #dc3545;
     color: white;
+    height: 24px;
+    width: 60px;
 }

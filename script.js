@@ -108,6 +108,8 @@
 //     window.deleteUser = deleteUser;
 // });
 
+let editIndex = null;
+
 document.getElementById("registrationForm").addEventListener("submit", function (event) {
     event.preventDefault();
     let isValid = true;
@@ -132,18 +134,27 @@ document.getElementById("registrationForm").addEventListener("submit", function 
 
     isValid = name && email.includes("@") && passwordRegex.test(password) && password === confirmPassword && phone.match(/^\d{10}$/) && country && terms;
 
+    
+
     if (isValid) {
         document.getElementById("successMessage").innerText = "Registration Successful!";
-
         let users = JSON.parse(localStorage.getItem("users")) || [];
-        users.push({ name, email, phone, country });
+        if (editIndex === null) {
+            users.push({name, email, phone, country});
+        } else {
+            users[editIndex] = {name, email, phone, country};
+            editIndex = null;
+        }
         localStorage.setItem("users", JSON.stringify(users));
-
         renderTable();
     }
 });
 
 const tableBody = document.getElementById("dataTable").querySelector("tbody");
+document.getElementById("registrationForm").reset();
+document.getElementById("successMessage").innerText = "";
+
+
 
 function renderTable() {
     const users = JSON.parse(localStorage.getItem("users")) || [];
@@ -173,8 +184,7 @@ function editUser(index) {
     document.getElementById("email").value = user.email;
     document.getElementById("phone").value = user.phone;
     document.getElementById("country").value = user.country;
-    
-    // deleteUser(index);
+    editIndex = index;
 }
 
 function deleteUser(index) {
